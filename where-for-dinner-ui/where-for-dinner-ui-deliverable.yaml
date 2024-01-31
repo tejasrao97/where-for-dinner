@@ -1,0 +1,22 @@
+apiVersion: carto.run/v1alpha1
+kind: Deliverable
+metadata:
+  name: where-for-dinner
+  labels:
+    app.kubernetes.io/part-of: where-for-dinner-ui
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: web
+    networking.knative.dev/visibility: cluster-local
+    app.kubernetes.io/component: deliverable
+    app.tanzu.vmware.com/deliverable-type: web
+    carto.run/cluster-template-name: external-deliverable-template
+    carto.run/resource-name: deliverable
+    carto.run/supply-chain-name: source-test-scan-to-url
+    carto.run/template-kind: ClusterTemplate
+    carto.run/template-lifecycle: mutable
+    carto.run/workload-name: where-for-dinner
+    carto.run/workload-namespace: demo-ns
+spec:
+  source:
+    image: harbor.tkgm.cloud.vmw/tap-packages/tap-1.7.1/where-for-dinner-demo-ns-bundle:42fe2e5e-4347-4420-82c1-40886035bb0a
+

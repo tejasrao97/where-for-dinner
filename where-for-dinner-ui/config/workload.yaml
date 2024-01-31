@@ -1,0 +1,44 @@
+apiVersion: carto.run/v1alpha1
+kind: Workload
+metadata:
+  labels:
+    app.kubernetes.io/part-of: where-for-dinner-ui
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: web
+    networking.knative.dev/visibility: cluster-local
+  name: where-for-dinner
+spec:
+  build:
+    env:
+      - name: BP_NODE_RUN_SCRIPTS
+        value: build
+      - name: BP_WEB_SERVER_ROOT
+        value: dist
+      - name: NPM_CONFIG_REGISTRY
+        value: "https://build-artifactory.eng.vmware.com/artifactory/api/npm/npm/"
+  params:
+  - name: scanning_source_policy
+    value: lax-scan-policy
+  - name: scanning_image_policy
+    value: lax-scan-policy
+  - name: testing_pipeline_matching_labels
+    value:
+      apps.tanzu.vmware.com/language: nodejs
+  - name: annotations
+    value:
+      autoscaling.knative.dev/minScale: "1"
+  - name: clusterBuilder
+    value: full-jammy
+  resources:
+    requests:
+      memory: "500M"
+      cpu: "100m"
+    limits:
+      memory: "750M"
+      cpu: "1500m"
+  source:
+    git:
+      url: https://gitlab.eng.vmware.com/puneethk1/where-for-dinner.git
+      ref:
+        branch: main
+    subPath: where-for-dinner-ui

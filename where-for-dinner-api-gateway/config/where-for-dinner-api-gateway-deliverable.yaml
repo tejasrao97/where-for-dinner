@@ -1,0 +1,22 @@
+apiVersion: carto.run/v1alpha1
+kind: Deliverable
+metadata:
+  name: where-for-dinner-api-gateway
+  labels:
+    app.kubernetes.io/part-of: where-for-dinner-api-gateway
+    apps.tanzu.vmware.com/auto-configure-actuators: "true"
+    apps.tanzu.vmware.com/has-tests: "true"
+    apps.tanzu.vmware.com/workload-type: web
+    app.kubernetes.io/component: deliverable
+    app.tanzu.vmware.com/deliverable-type: web
+    carto.run/cluster-template-name: external-deliverable-template
+    carto.run/resource-name: deliverable
+    carto.run/supply-chain-name: source-test-scan-to-url
+    carto.run/template-kind: ClusterTemplate
+    carto.run/template-lifecycle: mutable
+    carto.run/workload-name: where-for-dinner-api-gateway
+    carto.run/workload-namespace: demo-ns
+spec:
+  source:
+    image: harbor.tkgm.cloud.vmw/tap-packages/tap-1.7.1/where-for-dinner-api-gateway-demo-ns-bundle:69e01605-0680-47a6-adbd-08a53855ff87
+
